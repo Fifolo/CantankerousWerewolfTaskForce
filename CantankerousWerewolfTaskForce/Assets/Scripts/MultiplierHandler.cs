@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class MultiplierHandler : MonoBehaviour
@@ -16,6 +13,7 @@ public class MultiplierHandler : MonoBehaviour
         mutiplier.text = startValue.ToString();
         InvokeRepeating("mutlipierSubtraction", 1, 1);
     }
+
     private void mutlipierSubtraction()
     {
         value = float.Parse(mutiplier.GetComponent<TMPro.TextMeshProUGUI>().text);

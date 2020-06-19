@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
@@ -13,44 +11,52 @@ public class MovementController : MonoBehaviour
        
     private void Start()
     {
+        //get current position
         currentPosition = transform.position;
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, currentPosition, speed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, currentPosition, speed * Time.fixedDeltaTime);
     }
 
     public void movePlayer()
     {
         foreach (string direction in movement)
         {
-            switch (direction)
             {
-                case "LEFT":
-                    transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.left, speed * Time.deltaTime);
-                    currentPosition += Vector3.left;
+                switch (direction)
+                {
+                    case "LEFT":
+                        transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.left, speed * Time.fixedDeltaTime);
+                        currentPosition += Vector3.left;
+                        break;
 
-                    break;
+                    case "RIGHT":
+                        transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.right, speed * Time.fixedDeltaTime);
+                        currentPosition += Vector3.right;
+                        break;
 
-                case "RIGHT":
-                    transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.right, speed * Time.deltaTime);
-                    currentPosition += Vector3.right;
-                    break;
+                    case "UP":
+                        transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.up, speed * Time.fixedDeltaTime);
+                        currentPosition += Vector3.up;
+                        break;
 
-                case "UP":
-                    transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.up, speed * Time.deltaTime);
-                    currentPosition += Vector3.up;
-                    break;
-
-                case "DOWN":
-                    transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.down, speed * Time.deltaTime);
-                    currentPosition += Vector3.down;
-                    break;
+                    case "DOWN":
+                        transform.position = Vector3.Lerp(currentPosition, currentPosition + Vector3.down, speed * Time.fixedDeltaTime);
+                        currentPosition += Vector3.down;
+                        break;
+                }
             }
         }
     }
 
+    public void removeLast()
+    {
+        if(movement[movement.Count-1] != null)
+        movement.RemoveAt(movement.Count-1);
+    }
     public void moveLeft()
     {
         movement.Add("LEFT");
